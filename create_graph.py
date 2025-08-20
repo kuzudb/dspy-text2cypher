@@ -14,7 +14,7 @@ def setup_db(db_name: str, overwrite: bool = True) -> kuzu.Connection:
     Create a new Kuzu database and a graph schema based on DDL commands.
     """
     if overwrite:
-        Path(DB_NAME).unlink(missing_ok=True)
+        Path(db_name).unlink(missing_ok=True)
     db = kuzu.Database(db_name)
     conn = kuzu.Connection(db)
 
@@ -40,5 +40,5 @@ def ingest_data(conn: kuzu.Connection, data_path: str):
 if __name__ == "__main__":
     DB_NAME = "ldbc_1.kuzu"
     DATA_PATH = "./csv"
-    conn = setup_db(DB_NAME)
+    conn = setup_db(DB_NAME, overwrite=True)
     ingest_data(conn, DATA_PATH)
